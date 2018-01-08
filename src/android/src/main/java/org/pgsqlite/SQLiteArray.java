@@ -21,7 +21,7 @@ public class SQLiteArray extends JSONArray {
         super();
         try {
             Field valuesField = JSONArray.class.getDeclaredField("values");
-            valuesField.setAccessible(true);
+            makeAccessible(valuesField);
             valuesField.set(this, new ArrayList<>(size));
         } catch (NoSuchFieldException e) {
             FLog.e(SQLitePlugin.TAG, e.getMessage(), e);
@@ -30,4 +30,7 @@ public class SQLiteArray extends JSONArray {
         }
     }
 
+private void makeAccessible(Field field){
+            field.setAccessible(true);
+        }
 }

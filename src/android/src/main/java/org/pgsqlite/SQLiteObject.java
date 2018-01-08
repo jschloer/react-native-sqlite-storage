@@ -21,7 +21,7 @@ public class SQLiteObject extends JSONObject {
         super();
         try {
             Field valuesField = JSONObject.class.getDeclaredField("nameValuePairs");
-            valuesField.setAccessible(true);
+            makeAccessible(valuesField);
             valuesField.set(this, new LinkedHashMap<String, Object>(size));
         } catch (NoSuchFieldException e) {
             FLog.e(SQLitePlugin.TAG, e.getMessage(), e);
@@ -29,4 +29,8 @@ public class SQLiteObject extends JSONObject {
             FLog.e(SQLitePlugin.TAG, e.getMessage(), e);
         }
     }
+
+    private void makeAccessible(Field field){
+            field.setAccessible(true);
+        }
 }
